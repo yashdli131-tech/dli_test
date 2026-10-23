@@ -5,6 +5,7 @@ from app.mock_kyc.database import Base, engine
 from app.mock_kyc import models as mock_kyc_models  # Registers the SQLAlchemy models
 from app.mock_kyc.router import router as mock_aadhaar_router
 from app.mock_kyc.pan import router as mock_pan_router
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="DLI KYC Backend",
@@ -12,6 +13,12 @@ app = FastAPI(
     version="1.0.0",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://dlitest-dlikyc-tsto.vercel.app"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.add_middleware(
     CORSMiddleware,
